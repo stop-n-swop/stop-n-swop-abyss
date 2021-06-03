@@ -1,7 +1,8 @@
 export enum CommonErrorCode {
   UNKNOWN = "UNKNOWN",
   NOT_FOUND = "NOT_FOUND",
-  NOT_AUTHORIZED = "NOT_AUTHORIZED",
+  NOT_AUTHENTICATED = "NOT_AUTHENTICATED",
+  NOT_AUTHORISED = "NOT_AUTHORISED",
   CONFLICT = "CONFLICT",
   BAD_REQUEST = "BAD_REQUEST",
   VALIDATION = "VALIDATION",
@@ -67,12 +68,21 @@ export class NotFoundError extends BaseError {
   }
 }
 
-export class NotAuthorisedError extends BaseError {
-  code: string = CommonErrorCode.NOT_AUTHORIZED;
+export class NotAuthenticatedError extends BaseError {
+  code: string = CommonErrorCode.NOT_AUTHENTICATED;
   status = 401;
 
   toString() {
     return "You are not correctly authenticated";
+  }
+}
+
+export class NotAuthorisedError extends BaseError {
+  code: string = CommonErrorCode.NOT_AUTHORISED;
+  status = 403;
+
+  toString() {
+    return "You do not have permission for this action";
   }
 }
 

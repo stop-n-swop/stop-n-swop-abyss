@@ -1,4 +1,4 @@
-import { BadRequestError, NotAuthorisedError } from "./common";
+import { BadRequestError, NotAuthenticatedError } from "./common";
 
 export enum AuthErrorCode {
   INVALID_LOGIN = "INVALID_LOGIN",
@@ -14,10 +14,10 @@ export class InvalidLoginError extends BadRequestError {
   }
 }
 
-export class InvalidTokenError extends NotAuthorisedError {
+export class InvalidTokenError extends NotAuthenticatedError {
   code = AuthErrorCode.INVALID_TOKEN;
 }
 
-export class OutdatedTokenError extends NotAuthorisedError {
+export class OutdatedTokenError extends NotAuthenticatedError {
   code = AuthErrorCode.OUTDATED_TOKEN;
 }
