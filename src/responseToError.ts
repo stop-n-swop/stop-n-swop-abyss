@@ -3,6 +3,7 @@ import {
   BadRequestError,
   CommonErrorCode,
   ConflictError,
+  NotAuthenticatedError,
   NotAuthorisedError,
   NotFoundError,
   UnknownError,
@@ -18,6 +19,8 @@ import {
   CreateListingError,
   ListingErrorCode,
   ListingNotFoundError,
+  UpdateListingFailedError,
+  UpdateListingProhibitedError,
 } from "./listing";
 import { PlatformErrorCode, PlatformNotFoundError } from "./platform";
 import {
@@ -35,7 +38,9 @@ export const responseToError = (response: {
       return new UnknownError();
     case CommonErrorCode.NOT_FOUND:
       return new NotFoundError(response.error.entity, response.error.id);
-    case CommonErrorCode.NOT_AUTHORIZED:
+    case CommonErrorCode.NOT_AUTHENTICATED:
+      return new NotAuthenticatedError();
+    case CommonErrorCode.NOT_AUTHORISED:
       return new NotAuthorisedError();
     case CommonErrorCode.CONFLICT:
       return new ConflictError();
@@ -69,6 +74,10 @@ export const responseToError = (response: {
       return new CreateListingError();
     case ListingErrorCode.LISTING_NOT_FOUND:
       return new ListingNotFoundError(response.error.id);
+    case ListingErrorCode.UPDATE_FAILED:
+      return new UpdateListingFailedError();
+    case ListingErrorCode.UPDATE_LISTING_PROHIBITED:
+      return new UpdateListingProhibitedError();
 
     case PlatformErrorCode.PLATFORM_NOT_FOUND:
       return new PlatformNotFoundError(response.error.id);
@@ -80,6 +89,8 @@ export const responseToError = (response: {
     case 400:
       return new BadRequestError();
     case 401:
+      return new NotAuthenticatedError();
+    case 403:
       return new NotAuthorisedError();
     case 404:
       return new NotFoundError("", "");
