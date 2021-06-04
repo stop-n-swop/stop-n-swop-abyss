@@ -28,6 +28,12 @@ import {
   UsernameNotUniqueError,
   UserNotFoundError,
 } from "./user";
+import {
+  InvalidStatusError,
+  OrderErrorCode,
+  OrderNotFoundError,
+  OrderNotOwnedByUserError,
+} from "./order";
 
 export const responseToError = (response: {
   status: number;
@@ -81,6 +87,14 @@ export const responseToError = (response: {
 
     case PlatformErrorCode.PLATFORM_NOT_FOUND:
       return new PlatformNotFoundError(response.error.id);
+
+    case OrderErrorCode.INVALID_TRANSITION:
+      return new InvalidStatusError();
+    case OrderErrorCode.ORDER_NOT_FOUND:
+      return new OrderNotFoundError(response.error.id);
+    case OrderErrorCode.ORDER_NOT_OWNED_BY_USER:
+      return new OrderNotOwnedByUserError("", "");
+
     default:
       break;
   }
