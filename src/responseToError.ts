@@ -30,6 +30,7 @@ import {
 } from "./user";
 import {
   InvalidStatusError,
+  ListingOwnedByUserError,
   OrderErrorCode,
   OrderNotFoundError,
   OrderNotOwnedByUserError,
@@ -94,6 +95,8 @@ export const responseToError = (response: {
       return new OrderNotFoundError(response.error.id);
     case OrderErrorCode.ORDER_NOT_OWNED_BY_USER:
       return new OrderNotOwnedByUserError("", "");
+    case OrderErrorCode.LISTING_OWNED_BY_USER:
+      return new ListingOwnedByUserError();
 
     default:
       break;
