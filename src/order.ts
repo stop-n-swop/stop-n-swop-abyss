@@ -4,6 +4,7 @@ export enum OrderErrorCode {
   ORDER_NOT_FOUND = "ORDER_NOT_FOUND",
   ORDER_NOT_OWNED_BY_USER = "ORDER_NOT_OWNED_BY_USER",
   INVALID_TRANSITION = "INVALID_TRANSITION",
+  LISTING_OWNED_BY_USER = "LISTING_OWNED_BY_USER",
 }
 
 export class OrderNotFoundError extends NotFoundError {
@@ -33,5 +34,13 @@ export class InvalidStatusError extends BadRequestError {
 
   toString() {
     return "You have attempted to change your order status to an invalid value";
+  }
+}
+
+export class ListingOwnedByUserError extends NotAuthorisedError {
+  code = OrderErrorCode.LISTING_OWNED_BY_USER;
+
+  toString() {
+    return "You cannot create an order for a listing you own";
   }
 }
