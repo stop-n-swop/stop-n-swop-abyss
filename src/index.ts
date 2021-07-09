@@ -4,6 +4,7 @@ export * from "./game";
 export * from "./image";
 export * from "./listing";
 export * from "./order";
+export * from "./payments";
 export * from "./platform";
 export * from "./user";
 

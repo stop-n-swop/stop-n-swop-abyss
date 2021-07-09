@@ -122,6 +122,6 @@ export class ValidationError extends BadRequestError {
   }
 
   toString() {
-    return "";
+    return "Some required fields are missing or incomplete...";
   }
 }
