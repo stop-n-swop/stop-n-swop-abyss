@@ -35,6 +35,11 @@ import {
   OrderNotFoundError,
   OrderNotOwnedByUserError,
 } from "./order";
+import {
+  FailedToRegisterError,
+  MissingRegisterFieldsError,
+  PaymentErrorCode,
+} from "./payments";
 
 export const responseToError = (response: {
   status: number;
@@ -97,6 +102,11 @@ export const responseToError = (response: {
       return new OrderNotOwnedByUserError("", "");
     case OrderErrorCode.LISTING_OWNED_BY_USER:
       return new ListingOwnedByUserError();
+
+    case PaymentErrorCode.MISSING_REGISTER_FIELDS:
+      return new MissingRegisterFieldsError();
+    case PaymentErrorCode.FAILED_TO_REGISTER:
+      return new FailedToRegisterError();
 
     default:
       break;
