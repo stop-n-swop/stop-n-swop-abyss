@@ -36,6 +36,7 @@ import {
   OrderNotOwnedByUserError,
 } from "./order";
 import {
+  BankAccountFailError,
   FailedToRegisterError,
   MissingRegisterFieldsError,
   PaymentErrorCode,
@@ -107,6 +108,8 @@ export const responseToError = (response: {
       return new MissingRegisterFieldsError();
     case PaymentErrorCode.FAILED_TO_REGISTER:
       return new FailedToRegisterError();
+    case PaymentErrorCode.BANK_ACCOUNT_FAIL:
+      return new BankAccountFailError();
 
     default:
       break;
