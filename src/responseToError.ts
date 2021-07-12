@@ -38,6 +38,10 @@ import {
 import {
   BankAccountFailError,
   FailedToRegisterError,
+  KycDocumentFailedError,
+  KycPageFailedError,
+  KycPageTooSmallError,
+  KycSubmitFailedError,
   MissingRegisterFieldsError,
   PaymentErrorCode,
 } from "./payments";
@@ -110,6 +114,14 @@ export const responseToError = (response: {
       return new FailedToRegisterError();
     case PaymentErrorCode.BANK_ACCOUNT_FAIL:
       return new BankAccountFailError();
+    case PaymentErrorCode.KYC_DOCUMENT_FAILED:
+      return new KycDocumentFailedError();
+    case PaymentErrorCode.KYC_PAGE_TOO_SMALL:
+      return new KycPageTooSmallError();
+    case PaymentErrorCode.KYC_PAGE_FAILED:
+      return new KycPageFailedError();
+    case PaymentErrorCode.KYC_SUBMIT_FAILED:
+      return new KycSubmitFailedError();
 
     default:
       break;
