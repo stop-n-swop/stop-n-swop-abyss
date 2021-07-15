@@ -1,10 +1,16 @@
-import { BadRequestError, NotAuthorisedError, NotFoundError } from "./common";
+import {
+  BadRequestError,
+  ConflictError,
+  NotAuthorisedError,
+  NotFoundError,
+} from "./common";
 
 export enum OrderErrorCode {
   ORDER_NOT_FOUND = "ORDER_NOT_FOUND",
   ORDER_NOT_OWNED_BY_USER = "ORDER_NOT_OWNED_BY_USER",
   INVALID_TRANSITION = "INVALID_TRANSITION",
   LISTING_OWNED_BY_USER = "LISTING_OWNED_BY_USER",
+  ORDER_NOT_AVAILABLE = "ORDER_NOT_AVAILABLE",
 }
 
 export class OrderNotFoundError extends NotFoundError {
@@ -42,5 +48,13 @@ export class ListingOwnedByUserError extends NotAuthorisedError {
 
   toString() {
     return "You cannot create an order for a listing you own";
+  }
+}
+
+export class OrderNotAvailableError extends ConflictError {
+  code = OrderErrorCode.ORDER_NOT_AVAILABLE;
+
+  toString() {
+    return "This listing is no longer available :(";
   }
 }

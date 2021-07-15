@@ -46,7 +46,7 @@ export class NotFoundError extends BaseError {
   status = 404;
 
   constructor(public entity: string, public id: string) {
-    super(`Could not find requested game ${id}`);
+    super(`Could not find requested ${entity} ${id}`);
   }
 
   toString() {
