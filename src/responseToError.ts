@@ -32,6 +32,7 @@ import {
   InvalidStatusError,
   ListingOwnedByUserError,
   OrderErrorCode,
+  OrderNotAvailableError,
   OrderNotFoundError,
   OrderNotOwnedByUserError,
 } from "./order";
@@ -107,6 +108,8 @@ export const responseToError = (response: {
       return new OrderNotOwnedByUserError("", "");
     case OrderErrorCode.LISTING_OWNED_BY_USER:
       return new ListingOwnedByUserError();
+    case OrderErrorCode.ORDER_NOT_AVAILABLE:
+      return new OrderNotAvailableError();
 
     case PaymentErrorCode.MISSING_REGISTER_FIELDS:
       return new MissingRegisterFieldsError();
