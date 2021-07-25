@@ -53,6 +53,7 @@ import {
   PastExpryDateError,
   PaymentErrorCode,
   PaymentFailedError,
+  PayOutNotReadyError,
   ThreeDSecureFailedError,
   ThreeDSecureSessionExpiredError,
   TransactionRefusedError,
@@ -155,6 +156,8 @@ export const hydrate = (code: string, error: Record<string, any> = {}) => {
       return new PastExpryDateError();
     case PaymentErrorCode.TXN_NOT_FOUND:
       return new TxnNotFoundError(error.id);
+    case PaymentErrorCode.PAY_OUT_NOT_READY:
+      return new PayOutNotReadyError();
     default:
       break;
   }

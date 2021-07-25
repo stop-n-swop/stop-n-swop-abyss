@@ -25,6 +25,7 @@ export enum PaymentErrorCode {
   CARD_NUMBER_FORMAT = "M105202", // The card number is not a valid format
   PAST_EXPIRY_DATE = "M105203",
   TXN_NOT_FOUND = "TXN_NOT_FOUND",
+  PAY_OUT_NOT_READY = "PAY_OUT_NOT_READY",
 }
 
 export class MissingRegisterFieldsError extends BadRequestError {
@@ -160,5 +161,15 @@ export class TxnNotFoundError extends NotFoundError {
 
   constructor(id: string) {
     super("txn", id);
+  }
+}
+
+export class PayOutNotReadyError extends BadRequestError {
+  constructor() {
+    super("Attempted to pay out but user is not in a ready state");
+  }
+
+  toString() {
+    return "You are not set up for pay outs. Please make sure you have set up bank details and verified your identity.";
   }
 }
