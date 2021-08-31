@@ -13,7 +13,7 @@ export class GameNotFoundError extends NotFoundError {
   }
 
   toString() {
-    return `Hmm, we couldn't find a game with the id ${this.id}`;
+    return `Hmm, we couldn't find a game with the id ${this.entityId}`;
   }
 }
 
@@ -32,6 +32,7 @@ export class InvalidGamePlatformError extends BadRequestError {
     return {
       status: this.status,
       body: {
+        id: this.id,
         code: this.code,
         platformId: this.platformId,
         gameId: this.gameId,

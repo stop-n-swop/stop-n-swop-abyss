@@ -1,3 +1,5 @@
+import { ulid } from "ulid";
+
 export enum CommonErrorCode {
   UNKNOWN = "UNKNOWN",
   NOT_FOUND = "NOT_FOUND",
@@ -11,10 +13,12 @@ export enum CommonErrorCode {
 export interface IError {
   code: string;
   status: number;
+  id: string;
 
   toHttpResponse(): {
     status: number;
     body: {
+      id: string;
       code: string;
     };
   };
@@ -22,14 +26,23 @@ export interface IError {
 }
 
 export abstract class BaseError extends Error implements IError {
-  code: string = CommonErrorCode.UNKNOWN;
-  status = 500;
+  code: string;
+  status: number;
+  id: string;
+
+  constructor(message?: string) {
+    super(message);
+    this.code = CommonErrorCode.UNKNOWN;
+    this.status = 500;
+    this.id = ulid();
+  }
 
   toHttpResponse() {
     return {
       status: this.status,
       body: {
         code: this.code,
+        id: this.id,
       },
     };
   }
@@ -45,13 +58,16 @@ export class NotFoundError extends BaseError {
   code: string = CommonErrorCode.NOT_FOUND;
   status = 404;
 
-  constructor(public entity: string, public id: string) {
-    super(`Could not find requested ${entity} ${id}`);
+  constructor(public entity: string, public entityId: string) {
+    super(`Could not find requested ${entity} ${entityId}`);
   }
 
   toString() {
-    if (this.entity && this.id) {
-      return `Hmm, we couldn't find a ${this.entity} for ${this.id}`;
+    if (this.entity && this.entityId) {
+      return `Hmm, we couldn't find a ${this.entity} for ${this.entityId}`;
+    }
+    if (this.entity) {
+      return `Hmm, we couldn't find a ${this.entity}`;
     }
     return "Requested resource could not be found";
   }
@@ -60,8 +76,9 @@ export class NotFoundError extends BaseError {
     return {
       status: this.status,
       body: {
-        code: this.code,
         id: this.id,
+        code: this.code,
+        entityId: this.entityId,
         entity: this.entity,
       },
     };
@@ -115,6 +132,7 @@ export class ValidationError extends BadRequestError {
     return {
       status: this.status,
       body: {
+        id: this.id,
         code: this.code,
         errors: this.errors,
       },
