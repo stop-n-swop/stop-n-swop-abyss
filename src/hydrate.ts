@@ -43,7 +43,7 @@ export const hydrate = (code: string, error: Record<string, any> = {}) => {
     case CommonErrorCode.UNKNOWN:
       return new UnknownError();
     case CommonErrorCode.NOT_FOUND:
-      return new NotFoundError(error.entity, error.id);
+      return new NotFoundError(error.entity, error.entityId);
     case CommonErrorCode.NOT_AUTHENTICATED:
       return new NotAuthenticatedError();
     case CommonErrorCode.NOT_AUTHORISED:
@@ -58,7 +58,7 @@ export const hydrate = (code: string, error: Record<string, any> = {}) => {
     case UserErrorCode.USERNAME_NOT_UNIQUE:
       return new UsernameNotUniqueError();
     case UserErrorCode.USER_NOT_FOUND:
-      return new UserNotFoundError(error.id);
+      return new UserNotFoundError(error.entityId);
 
     case AuthErrorCode.INVALID_LOGIN:
       return new InvalidLoginError();
@@ -69,26 +69,26 @@ export const hydrate = (code: string, error: Record<string, any> = {}) => {
       return new UploadFailedError();
 
     case GameErrorCode.GAME_NOT_FOUND:
-      return new GameNotFoundError(error.id);
+      return new GameNotFoundError(error.entityId);
     case GameErrorCode.INVALID_GAME_PLATFORM:
       return new InvalidGamePlatformError(error.platformId, error.gameId);
 
     case ListingErrorCode.CREATE_LISTING:
       return new CreateListingError();
     case ListingErrorCode.LISTING_NOT_FOUND:
-      return new ListingNotFoundError(error.id);
+      return new ListingNotFoundError(error.entityId);
     case ListingErrorCode.UPDATE_FAILED:
       return new UpdateListingFailedError();
     case ListingErrorCode.UPDATE_LISTING_PROHIBITED:
       return new UpdateListingProhibitedError();
 
     case PlatformErrorCode.PLATFORM_NOT_FOUND:
-      return new PlatformNotFoundError(error.id);
+      return new PlatformNotFoundError(error.entityId);
 
     case OrderErrorCode.INVALID_TRANSITION:
       return new InvalidStatusError();
     case OrderErrorCode.ORDER_NOT_FOUND:
-      return new OrderNotFoundError(error.id);
+      return new OrderNotFoundError(error.entityId);
     case OrderErrorCode.ORDER_NOT_OWNED_BY_USER:
       return new OrderNotOwnedByUserError("", "");
     case OrderErrorCode.LISTING_OWNED_BY_USER:
