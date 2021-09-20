@@ -37,6 +37,7 @@ import {
   OrderNotOwnedByUserError,
 } from "./order";
 import { PaymentErrorCode, PayOutNotReadyError } from "./payments";
+import { ImageNotFoundError } from ".";
 
 export const hydrate = (code: string, error: Record<string, any> = {}) => {
   switch (code) {
@@ -67,6 +68,8 @@ export const hydrate = (code: string, error: Record<string, any> = {}) => {
 
     case ImageErrorCode.UPLOAD_FAILED:
       return new UploadFailedError();
+    case ImageErrorCode.NOT_FOUND:
+      return new ImageNotFoundError(error.entityId);
 
     case GameErrorCode.GAME_NOT_FOUND:
       return new GameNotFoundError(error.entityId);
