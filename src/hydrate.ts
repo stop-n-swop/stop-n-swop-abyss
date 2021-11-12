@@ -14,7 +14,7 @@ import {
   GameNotFoundError,
   InvalidGamePlatformError,
 } from "./game";
-import { ImageErrorCode, UploadFailedError } from "./image";
+import { ImageErrorCode, UploadFailedError, ImageNotFoundError } from "./image";
 import {
   CreateListingError,
   ListingErrorCode,
@@ -27,6 +27,7 @@ import {
   UserErrorCode,
   UsernameNotUniqueError,
   UserNotFoundError,
+  EmailNotUniqueError,
 } from "./user";
 import {
   InvalidStatusError,
@@ -37,7 +38,6 @@ import {
   OrderNotOwnedByUserError,
 } from "./order";
 import { PaymentErrorCode, PayOutNotReadyError } from "./payments";
-import { ImageNotFoundError } from ".";
 
 export const hydrate = (code: string, error: Record<string, any> = {}) => {
   switch (code) {
@@ -58,6 +58,8 @@ export const hydrate = (code: string, error: Record<string, any> = {}) => {
 
     case UserErrorCode.USERNAME_NOT_UNIQUE:
       return new UsernameNotUniqueError();
+    case UserErrorCode.EMAIL_NOT_UNIQUE:
+      return new EmailNotUniqueError(error.email);
     case UserErrorCode.USER_NOT_FOUND:
       return new UserNotFoundError(error.entityId);
 
