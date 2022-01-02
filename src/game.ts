@@ -1,15 +1,15 @@
-import { BadRequestError, NotFoundError } from "./common";
+import { BadRequestError, NotFoundError } from './common';
 
 export enum GameErrorCode {
-  GAME_NOT_FOUND = "GAME_NOT_FOUND",
-  INVALID_GAME_PLATFORM = "INVALID_GAME_PLATFORM",
+  GAME_NOT_FOUND = 'GAME_NOT_FOUND',
+  INVALID_GAME_PLATFORM = 'INVALID_GAME_PLATFORM',
 }
 
 export class GameNotFoundError extends NotFoundError {
   code = GameErrorCode.GAME_NOT_FOUND;
 
   constructor(id: string) {
-    super("game", id);
+    super('game', id);
   }
 
   toString() {

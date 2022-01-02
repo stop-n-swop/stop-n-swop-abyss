@@ -1,17 +1,28 @@
 {
-  "name": "@sns/abyss",
+  "name": "@stop-n-swop/abyss",
+  "publishConfig": {
+    "access": "public"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
+  },
   "version": "0.0.0",
-  "repository": "git@github.com:stop-n-swop/stop-n-swop-abyss.git",
+  "repository": "https://github.com/stop-n-swop/stop-n-swop-abyss.git",
   "author": "Jack Ellis",
   "license": "MIT",
   "main": "dist/cjs/abyss.js",
   "module": "dist/es/abyss.js",
   "types": "dist/ts/index.d.ts",
   "scripts": {
+    "lint": "eslint src/ && tsc --noEmit",
+    "test": "echo \"no tests\"",
     "build:js": "rollup --config ./rollup.config.js",
     "build:ts": "tsc --emitDeclarationOnly --outDir ./dist/ts",
     "build": "yarn build:js && yarn build:ts",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn build",
+    "ci": "yarn install && yarn lint && yarn test && yarn build"
   },
   "devDependencies": {
     "@babel/core": "^7.13.15",
@@ -20,6 +31,24 @@
     "@babel/plugin-proposal-optional-chaining": "^7.13.12",
     "@babel/preset-env": "^7.13.15",
     "@babel/preset-typescript": "^7.13.0",
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "eslint": "^7.23.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-airbnb-typescript-prettier": "^4.2.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-import-resolver-babel-module": "^5.2.0",
+    "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.3.4",
+    "eslint-plugin-prettier": "^3.3.1",
+    "jest": "^27.4.5",
+    "prettier": "^2.5.1",
+    "prettier-eslint": "^12.0.0",
+    "prettier-eslint-cli": "^5.0.1",
     "rollup": "^2.45.1",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-cleanup": "^3.2.1",
