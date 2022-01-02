@@ -1,13 +1,13 @@
-import { ulid } from "ulid";
+import { ulid } from 'ulid';
 
 export enum CommonErrorCode {
-  UNKNOWN = "UNKNOWN",
-  NOT_FOUND = "NOT_FOUND",
-  NOT_AUTHENTICATED = "NOT_AUTHENTICATED",
-  NOT_AUTHORISED = "NOT_AUTHORISED",
-  CONFLICT = "CONFLICT",
-  BAD_REQUEST = "BAD_REQUEST",
-  VALIDATION = "VALIDATION",
+  UNKNOWN = 'UNKNOWN',
+  NOT_FOUND = 'NOT_FOUND',
+  NOT_AUTHENTICATED = 'NOT_AUTHENTICATED',
+  NOT_AUTHORISED = 'NOT_AUTHORISED',
+  CONFLICT = 'CONFLICT',
+  BAD_REQUEST = 'BAD_REQUEST',
+  VALIDATION = 'VALIDATION',
 }
 
 export interface IError {
@@ -27,7 +27,9 @@ export interface IError {
 
 export abstract class BaseError extends Error implements IError {
   code: string;
+
   status: number;
+
   id: string;
 
   constructor(message?: string) {
@@ -48,7 +50,7 @@ export abstract class BaseError extends Error implements IError {
   }
 
   toString() {
-    return "An unknown error occurred";
+    return 'An unknown error occurred';
   }
 }
 
@@ -56,6 +58,7 @@ export class UnknownError extends BaseError {}
 
 export class NotFoundError extends BaseError {
   code: string = CommonErrorCode.NOT_FOUND;
+
   status = 404;
 
   constructor(public entity: string, public entityId: string) {
@@ -69,7 +72,7 @@ export class NotFoundError extends BaseError {
     if (this.entity) {
       return `Hmm, we couldn't find a ${this.entity}`;
     }
-    return "Requested resource could not be found";
+    return 'Requested resource could not be found';
   }
 
   toHttpResponse() {
@@ -87,37 +90,41 @@ export class NotFoundError extends BaseError {
 
 export class NotAuthenticatedError extends BaseError {
   code: string = CommonErrorCode.NOT_AUTHENTICATED;
+
   status = 401;
 
   toString() {
-    return "You are not correctly authenticated";
+    return 'You are not correctly authenticated';
   }
 }
 
 export class NotAuthorisedError extends BaseError {
   code: string = CommonErrorCode.NOT_AUTHORISED;
+
   status = 403;
 
   toString() {
-    return "You do not have permission for this action";
+    return 'You do not have permission for this action';
   }
 }
 
 export class ConflictError extends BaseError {
   code: string = CommonErrorCode.CONFLICT;
+
   status = 409;
 
   toString() {
-    return "There was a conflict. Maybe a record already exists or was updated by someone else?";
+    return 'There was a conflict. Maybe a record already exists or was updated by someone else?';
   }
 }
 
 export class BadRequestError extends BaseError {
   code: string = CommonErrorCode.BAD_REQUEST;
+
   status = 400;
 
   toString() {
-    return "The data you provided was not valid...";
+    return 'The data you provided was not valid...';
   }
 }
 
@@ -140,6 +147,6 @@ export class ValidationError extends BadRequestError {
   }
 
   toString() {
-    return "Some required fields are missing or incomplete...";
+    return 'Some required fields are missing or incomplete...';
   }
 }

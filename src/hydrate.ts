@@ -1,4 +1,4 @@
-import { AuthErrorCode, InvalidLoginError, OutdatedTokenError } from "./auth";
+import { AuthErrorCode, InvalidLoginError, OutdatedTokenError } from './auth';
 import {
   BadRequestError,
   CommonErrorCode,
@@ -8,27 +8,27 @@ import {
   NotFoundError,
   UnknownError,
   ValidationError,
-} from "./common";
+} from './common';
 import {
   GameErrorCode,
   GameNotFoundError,
   InvalidGamePlatformError,
-} from "./game";
-import { ImageErrorCode, UploadFailedError, ImageNotFoundError } from "./image";
+} from './game';
+import { ImageErrorCode, UploadFailedError, ImageNotFoundError } from './image';
 import {
   CreateListingError,
   ListingErrorCode,
   ListingNotFoundError,
   UpdateListingFailedError,
   UpdateListingProhibitedError,
-} from "./listing";
-import { PlatformErrorCode, PlatformNotFoundError } from "./platform";
+} from './listing';
+import { PlatformErrorCode, PlatformNotFoundError } from './platform';
 import {
   UserErrorCode,
   UsernameNotUniqueError,
   UserNotFoundError,
   EmailNotUniqueError,
-} from "./user";
+} from './user';
 import {
   InvalidStatusError,
   ListingOwnedByUserError,
@@ -36,8 +36,8 @@ import {
   OrderNotAvailableError,
   OrderNotFoundError,
   OrderNotOwnedByUserError,
-} from "./order";
-import { PaymentErrorCode, PayOutNotReadyError } from "./payments";
+} from './order';
+import { PaymentErrorCode, PayOutNotReadyError } from './payments';
 
 export const hydrate = (code: string, error: Record<string, any> = {}) => {
   switch (code) {
@@ -95,7 +95,7 @@ export const hydrate = (code: string, error: Record<string, any> = {}) => {
     case OrderErrorCode.ORDER_NOT_FOUND:
       return new OrderNotFoundError(error.entityId);
     case OrderErrorCode.ORDER_NOT_OWNED_BY_USER:
-      return new OrderNotOwnedByUserError("", "");
+      return new OrderNotOwnedByUserError('', '');
     case OrderErrorCode.LISTING_OWNED_BY_USER:
       return new ListingOwnedByUserError();
     case OrderErrorCode.ORDER_NOT_AVAILABLE:

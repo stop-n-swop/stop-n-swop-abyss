@@ -5,14 +5,14 @@ import {
   NotAuthorisedError,
   NotFoundError,
   UnknownError,
-} from "./common";
-import { hydrate } from "./hydrate";
+} from './common';
+import { hydrate } from './hydrate';
 
 export const responseToError = (response: {
   status: number;
   error: Record<string, any>;
 }) => {
-  let err = hydrate(response.error?.code, response.error);
+  const err = hydrate(response.error?.code, response.error);
 
   if (err.constructor === UnknownError) {
     switch (response.status) {
@@ -23,7 +23,7 @@ export const responseToError = (response: {
       case 403:
         return new NotAuthorisedError();
       case 404:
-        return new NotFoundError("", "");
+        return new NotFoundError('', '');
       case 409:
         return new ConflictError();
       default:
