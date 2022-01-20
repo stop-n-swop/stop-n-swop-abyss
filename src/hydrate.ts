@@ -37,7 +37,12 @@ import {
   OrderNotFoundError,
   OrderNotOwnedByUserError,
 } from './order';
-import { PaymentErrorCode, PayOutNotReadyError } from './payments';
+import {
+  PaymentErrorCode,
+  PayOutNotReadyError,
+  PayCancelledError,
+  PayRequiredPaymentMethodError,
+} from './payments';
 
 export const hydrate = (code: string, error: Record<string, any> = {}) => {
   switch (code) {
@@ -103,6 +108,10 @@ export const hydrate = (code: string, error: Record<string, any> = {}) => {
 
     case PaymentErrorCode.PAY_OUT_NOT_READY:
       return new PayOutNotReadyError();
+    case PaymentErrorCode.PAY_CANCELLED:
+      return new PayCancelledError();
+    case PaymentErrorCode.PAY_REQUIRED_PAYMENT_METHOD:
+      return new PayRequiredPaymentMethodError();
     default:
       break;
   }
