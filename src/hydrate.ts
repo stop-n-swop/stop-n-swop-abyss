@@ -28,6 +28,7 @@ import {
   UsernameNotUniqueError,
   UserNotFoundError,
   EmailNotUniqueError,
+  MerchantNotFoundError,
 } from './user';
 import {
   InvalidStatusError,
@@ -67,6 +68,8 @@ export const hydrate = (code: string, error: Record<string, any> = {}) => {
       return new EmailNotUniqueError(error.email);
     case UserErrorCode.USER_NOT_FOUND:
       return new UserNotFoundError(error.entityId);
+    case UserErrorCode.MERCHANT_NOT_FOUND:
+      return new MerchantNotFoundError(error.entityId);
 
     case AuthErrorCode.INVALID_LOGIN:
       return new InvalidLoginError();

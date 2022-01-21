@@ -4,6 +4,7 @@ export enum UserErrorCode {
   USERNAME_NOT_UNIQUE = 'USERNAME_NOT_UNIQUE',
   EMAIL_NOT_UNIQUE = 'EMAIL_NOT_UNIQUE',
   USER_NOT_FOUND = 'USER_NOT_FOUND',
+  MERCHANT_NOT_FOUND = 'MERCHANT_NOT_FOUND',
 }
 
 export class UsernameNotUniqueError extends ConflictError {
@@ -43,5 +44,13 @@ export class UserNotFoundError extends NotFoundError {
 
   constructor(id: string) {
     super('user', id);
+  }
+}
+
+export class MerchantNotFoundError extends NotFoundError {
+  code = UserErrorCode.MERCHANT_NOT_FOUND;
+
+  constructor(id: string) {
+    super('merchant', id);
   }
 }
