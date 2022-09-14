@@ -1,10 +1,11 @@
-import { ConflictError, NotFoundError } from './common';
+import { BadRequestError, ConflictError, NotFoundError } from './common';
 
 export enum UserErrorCode {
   USERNAME_NOT_UNIQUE = 'USERNAME_NOT_UNIQUE',
   EMAIL_NOT_UNIQUE = 'EMAIL_NOT_UNIQUE',
   USER_NOT_FOUND = 'USER_NOT_FOUND',
   MERCHANT_NOT_FOUND = 'MERCHANT_NOT_FOUND',
+  DELETE_BLOCKED = 'DELETE_BLOCKED',
 }
 
 export class UsernameNotUniqueError extends ConflictError {
@@ -52,5 +53,42 @@ export class MerchantNotFoundError extends NotFoundError {
 
   constructor(id: string) {
     super('merchant', id);
+  }
+}
+
+export class DeleteBlockedError extends BadRequestError {
+  code = UserErrorCode.DELETE_BLOCKED;
+
+  constructor(
+    public reason: 'orders' | 'listings' | 'balance' | 'withdrawals',
+  ) {
+    super();
+  }
+
+  toHttpResponse() {
+    const response = super.toHttpResponse();
+
+    return {
+      ...response,
+      body: {
+        ...response.body,
+        reason: this.reason,
+      },
+    };
+  }
+
+  toString() {
+    switch (this.reason) {
+      case 'orders':
+        return 'We cannot close your account as you have outstanding orders';
+      case 'listings':
+        return 'We cannot close your account as you have outstanding listings';
+      case 'balance':
+        return 'We cannot close your account as you have an unwithdrawn balance';
+      case 'withdrawals':
+        return 'You have request a balance withdrawal, we cannot close your account until this has been completed';
+      default:
+        return 'Cannot delete user account';
+    }
   }
 }
