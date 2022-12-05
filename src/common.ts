@@ -22,6 +22,15 @@ export interface IError {
       code: string;
     };
   };
+  toRpcResponse(): {
+    code: number;
+    message: string;
+    data: {
+      id: string;
+      code: string;
+      [key: string]: any;
+    };
+  };
   toString(): string;
 }
 
@@ -46,6 +55,15 @@ export abstract class BaseError extends Error implements IError {
         code: this.code,
         id: this.id,
       },
+    };
+  }
+
+  toRpcResponse() {
+    const http = this.toHttpResponse();
+    return {
+      code: http.status,
+      message: this.message,
+      data: http.body,
     };
   }
 

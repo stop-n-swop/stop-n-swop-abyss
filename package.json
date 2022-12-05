@@ -23,9 +23,9 @@
     "test": "echo \"no tests\"",
     "build:js": "rollup --config ./rollup.config.js",
     "build:ts": "tsc --emitDeclarationOnly --outDir ./dist/ts",
-    "build": "yarn build:js && yarn build:ts",
-    "prepublishOnly": "yarn build",
-    "ci": "yarn install && yarn lint && yarn test && yarn build",
+    "build": "pnpm build:js && pnpm run build:ts",
+    "prepublishOnly": "pnpm build",
+    "ci": "pnpm install && pnpm lint && pnpm test && pnpm build",
     "prepare": "husky install"
   },
   "devDependencies": {
@@ -37,6 +37,7 @@
     "@babel/preset-typescript": "^7.13.0",
     "@commitlint/cli": "^16.0.1",
     "@commitlint/config-conventional": "^16.0.0",
+    "@types/node": "^18.11.9",
     "@typescript-eslint/eslint-plugin": "^4.21.0",
     "@typescript-eslint/parser": "^4.21.0",
     "babel-eslint": "^10.1.0",
@@ -50,7 +51,10 @@
     "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^24.3.4",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4",
     "husky": "^7.0.4",
     "jest": "^27.4.5",
     "lint-staged": "^12.1.5",
@@ -66,5 +70,8 @@
   },
   "dependencies": {
     "ulid": "^2.3.0"
+  },
+  "resolutions": {
+    "@types/node": "^18.11.9"
   }
 }
