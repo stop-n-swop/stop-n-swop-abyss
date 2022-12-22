@@ -1,6 +1,6 @@
 export * from './auth';
 export * from './common';
-export * from './game';
+export * from './product';
 export * from './image';
 export * from './listing';
 export * from './order';

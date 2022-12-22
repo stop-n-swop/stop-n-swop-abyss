@@ -164,18 +164,18 @@ class OutdatedTokenError extends NotAuthenticatedError {
   }
 }
 
-exports.GameErrorCode = void 0;
-(function (GameErrorCode) {
-  GameErrorCode["GAME_NOT_FOUND"] = "GAME_NOT_FOUND";
-  GameErrorCode["INVALID_GAME_PLATFORM"] = "INVALID_GAME_PLATFORM";
-})(exports.GameErrorCode || (exports.GameErrorCode = {}));
-class GameNotFoundError extends NotFoundError {
+exports.ProductErrorCode = void 0;
+(function (ProductErrorCode) {
+  ProductErrorCode["PRODUCT_NOT_FOUND"] = "PRODUCT_NOT_FOUND";
+  ProductErrorCode["INVALID_GAME_PLATFORM"] = "INVALID_GAME_PLATFORM";
+})(exports.ProductErrorCode || (exports.ProductErrorCode = {}));
+class ProductNotFoundError extends NotFoundError {
   constructor(id) {
-    super('game', id);
-    this.code = exports.GameErrorCode.GAME_NOT_FOUND;
+    super('product', id);
+    this.code = exports.ProductErrorCode.PRODUCT_NOT_FOUND;
   }
   toString() {
-    return `Hmm, we couldn't find a game with the id ${this.entityId}`;
+    return `Hmm, we couldn't find a product with the id ${this.entityId}`;
   }
 }
 class InvalidGamePlatformError extends BadRequestError {
@@ -183,7 +183,7 @@ class InvalidGamePlatformError extends BadRequestError {
     super(`Invalid platform ${platformId} for game ${gameId}`);
     this.platformId = platformId;
     this.gameId = gameId;
-    this.code = exports.GameErrorCode.INVALID_GAME_PLATFORM;
+    this.code = exports.ProductErrorCode.INVALID_GAME_PLATFORM;
   }
   toString() {
     return `Invalid platform ${this.platformId} for game ${this.gameId}`;
@@ -477,9 +477,9 @@ const hydrate = function (code, error) {
       return new UploadFailedError();
     case exports.ImageErrorCode.NOT_FOUND:
       return new ImageNotFoundError(error.entityId);
-    case exports.GameErrorCode.GAME_NOT_FOUND:
-      return new GameNotFoundError(error.entityId);
-    case exports.GameErrorCode.INVALID_GAME_PLATFORM:
+    case exports.ProductErrorCode.PRODUCT_NOT_FOUND:
+      return new ProductNotFoundError(error.entityId);
+    case exports.ProductErrorCode.INVALID_GAME_PLATFORM:
       return new InvalidGamePlatformError(error.platformId, error.gameId);
     case exports.ListingErrorCode.CREATE_LISTING:
       return new CreateListingError();
@@ -537,7 +537,6 @@ exports.ConflictError = ConflictError;
 exports.CreateListingError = CreateListingError;
 exports.DeleteBlockedError = DeleteBlockedError;
 exports.EmailNotUniqueError = EmailNotUniqueError;
-exports.GameNotFoundError = GameNotFoundError;
 exports.ImageNotFoundError = ImageNotFoundError;
 exports.InvalidGamePlatformError = InvalidGamePlatformError;
 exports.InvalidLoginError = InvalidLoginError;
@@ -557,6 +556,7 @@ exports.PayCancelledError = PayCancelledError;
 exports.PayOutNotReadyError = PayOutNotReadyError;
 exports.PayRequiredPaymentMethodError = PayRequiredPaymentMethodError;
 exports.PlatformNotFoundError = PlatformNotFoundError;
+exports.ProductNotFoundError = ProductNotFoundError;
 exports.UnknownError = UnknownError;
 exports.UpdateListingFailedError = UpdateListingFailedError;
 exports.UpdateListingProhibitedError = UpdateListingProhibitedError;

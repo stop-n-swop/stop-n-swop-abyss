@@ -1,24 +1,24 @@
 import { BadRequestError, NotFoundError } from './common';
 
-export enum GameErrorCode {
-  GAME_NOT_FOUND = 'GAME_NOT_FOUND',
+export enum ProductErrorCode {
+  PRODUCT_NOT_FOUND = 'PRODUCT_NOT_FOUND',
   INVALID_GAME_PLATFORM = 'INVALID_GAME_PLATFORM',
 }
 
-export class GameNotFoundError extends NotFoundError {
-  code = GameErrorCode.GAME_NOT_FOUND;
+export class ProductNotFoundError extends NotFoundError {
+  code = ProductErrorCode.PRODUCT_NOT_FOUND;
 
   constructor(id: string) {
-    super('game', id);
+    super('product', id);
   }
 
   toString() {
-    return `Hmm, we couldn't find a game with the id ${this.entityId}`;
+    return `Hmm, we couldn't find a product with the id ${this.entityId}`;
   }
 }
 
 export class InvalidGamePlatformError extends BadRequestError {
-  code = GameErrorCode.INVALID_GAME_PLATFORM;
+  code = ProductErrorCode.INVALID_GAME_PLATFORM;
 
   constructor(public platformId: string, public gameId: string) {
     super(`Invalid platform ${platformId} for game ${gameId}`);

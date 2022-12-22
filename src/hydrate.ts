@@ -10,10 +10,10 @@ import {
   ValidationError,
 } from './common';
 import {
-  GameErrorCode,
-  GameNotFoundError,
+  ProductErrorCode,
+  ProductNotFoundError,
   InvalidGamePlatformError,
-} from './game';
+} from './product';
 import { ImageErrorCode, UploadFailedError, ImageNotFoundError } from './image';
 import {
   CreateListingError,
@@ -84,9 +84,9 @@ export const hydrate = (code: string, error: Record<string, any> = {}) => {
     case ImageErrorCode.NOT_FOUND:
       return new ImageNotFoundError(error.entityId);
 
-    case GameErrorCode.GAME_NOT_FOUND:
-      return new GameNotFoundError(error.entityId);
-    case GameErrorCode.INVALID_GAME_PLATFORM:
+    case ProductErrorCode.PRODUCT_NOT_FOUND:
+      return new ProductNotFoundError(error.entityId);
+    case ProductErrorCode.INVALID_GAME_PLATFORM:
       return new InvalidGamePlatformError(error.platformId, error.gameId);
 
     case ListingErrorCode.CREATE_LISTING:

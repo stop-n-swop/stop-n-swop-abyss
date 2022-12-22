@@ -160,18 +160,18 @@ class OutdatedTokenError extends NotAuthenticatedError {
   }
 }
 
-let GameErrorCode;
-(function (GameErrorCode) {
-  GameErrorCode["GAME_NOT_FOUND"] = "GAME_NOT_FOUND";
-  GameErrorCode["INVALID_GAME_PLATFORM"] = "INVALID_GAME_PLATFORM";
-})(GameErrorCode || (GameErrorCode = {}));
-class GameNotFoundError extends NotFoundError {
+let ProductErrorCode;
+(function (ProductErrorCode) {
+  ProductErrorCode["PRODUCT_NOT_FOUND"] = "PRODUCT_NOT_FOUND";
+  ProductErrorCode["INVALID_GAME_PLATFORM"] = "INVALID_GAME_PLATFORM";
+})(ProductErrorCode || (ProductErrorCode = {}));
+class ProductNotFoundError extends NotFoundError {
   constructor(id) {
-    super('game', id);
-    this.code = GameErrorCode.GAME_NOT_FOUND;
+    super('product', id);
+    this.code = ProductErrorCode.PRODUCT_NOT_FOUND;
   }
   toString() {
-    return `Hmm, we couldn't find a game with the id ${this.entityId}`;
+    return `Hmm, we couldn't find a product with the id ${this.entityId}`;
   }
 }
 class InvalidGamePlatformError extends BadRequestError {
@@ -179,7 +179,7 @@ class InvalidGamePlatformError extends BadRequestError {
     super(`Invalid platform ${platformId} for game ${gameId}`);
     this.platformId = platformId;
     this.gameId = gameId;
-    this.code = GameErrorCode.INVALID_GAME_PLATFORM;
+    this.code = ProductErrorCode.INVALID_GAME_PLATFORM;
   }
   toString() {
     return `Invalid platform ${this.platformId} for game ${this.gameId}`;
@@ -473,9 +473,9 @@ const hydrate = function (code, error) {
       return new UploadFailedError();
     case ImageErrorCode.NOT_FOUND:
       return new ImageNotFoundError(error.entityId);
-    case GameErrorCode.GAME_NOT_FOUND:
-      return new GameNotFoundError(error.entityId);
-    case GameErrorCode.INVALID_GAME_PLATFORM:
+    case ProductErrorCode.PRODUCT_NOT_FOUND:
+      return new ProductNotFoundError(error.entityId);
+    case ProductErrorCode.INVALID_GAME_PLATFORM:
       return new InvalidGamePlatformError(error.platformId, error.gameId);
     case ListingErrorCode.CREATE_LISTING:
       return new CreateListingError();
@@ -527,4 +527,4 @@ const responseToError = response => {
   return err;
 };
 
-export { AuthErrorCode, BadRequestError, BaseError, CommonErrorCode, ConflictError, CreateListingError, DeleteBlockedError, EmailNotUniqueError, GameErrorCode, GameNotFoundError, ImageErrorCode, ImageNotFoundError, InvalidGamePlatformError, InvalidLoginError, InvalidStatusError, InvalidTokenError, ListingErrorCode, ListingNotFoundError, ListingOwnedByUserError, MerchantNotFoundError, NotAuthenticatedError, NotAuthorisedError, NotFoundError, OrderErrorCode, OrderNotAvailableError, OrderNotFoundError, OrderNotOwnedByUserError, OutdatedTokenError, PayCancelledError, PayOutNotReadyError, PayRequiredPaymentMethodError, PaymentErrorCode, PlatformErrorCode, PlatformNotFoundError, UnknownError, UpdateListingFailedError, UpdateListingProhibitedError, UploadFailedError, UserErrorCode, UserNotFoundError, UsernameNotUniqueError, ValidationError, hydrate, responseToError };
+export { AuthErrorCode, BadRequestError, BaseError, CommonErrorCode, ConflictError, CreateListingError, DeleteBlockedError, EmailNotUniqueError, ImageErrorCode, ImageNotFoundError, InvalidGamePlatformError, InvalidLoginError, InvalidStatusError, InvalidTokenError, ListingErrorCode, ListingNotFoundError, ListingOwnedByUserError, MerchantNotFoundError, NotAuthenticatedError, NotAuthorisedError, NotFoundError, OrderErrorCode, OrderNotAvailableError, OrderNotFoundError, OrderNotOwnedByUserError, OutdatedTokenError, PayCancelledError, PayOutNotReadyError, PayRequiredPaymentMethodError, PaymentErrorCode, PlatformErrorCode, PlatformNotFoundError, ProductErrorCode, ProductNotFoundError, UnknownError, UpdateListingFailedError, UpdateListingProhibitedError, UploadFailedError, UserErrorCode, UserNotFoundError, UsernameNotUniqueError, ValidationError, hydrate, responseToError };
